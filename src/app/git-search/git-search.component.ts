@@ -10,17 +10,20 @@ import { GitUsers } from '../git-users';
 })
 export class GitSearchComponent implements OnInit {
   searchResults: GitSearch;
+  searchQuery: string;
   userSearchResults: GitUsers;
 
-  constructor(private GitSearchService: GitSearchService) { }
+  constructor(private GitSearchService: GitSearchService) {
+    this.searchQuery = 'angular';
+  }
 
   ngOnInit() {
-    this.gitSearch('angular');
+    this.gitSearch();
     this.gitUserSearch('tom');
   }
 
-  gitSearch = (query: string) => {
-    this.GitSearchService.gitSearch(query).then((response) => {
+  gitSearch = () => {
+    this.GitSearchService.gitSearch(this.searchQuery).then((response) => {
       this.searchResults = response;
     }, (error) => {
       alert('Error: ' + error.statusText);
