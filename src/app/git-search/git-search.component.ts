@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GitSearchService } from '../git-search.service';
 import { GitSearch } from '../git-search';
 import { GitUsers } from '../git-users';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router'
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-git-search',
@@ -15,8 +15,9 @@ export class GitSearchComponent implements OnInit {
   userSearchResults: GitUsers;
   title: string;
   displayQuery: string;
+  searchPage: number;
 
-  constructor(private GitSearchService: GitSearchService, 
+  constructor(private gitSearchService: GitSearchService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -28,12 +29,13 @@ export class GitSearchComponent implements OnInit {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.searchQuery = params.get('query');
       this.displayQuery = params.get('query');
+      this.searchPage = parseInt(params.get('page'), 10);
       this.gitSearch();
     });
   }
 
   gitSearch = () => {
-    this.GitSearchService.gitSearch(this.searchQuery).then((response) => {
+    this.gitSearchService.gitSearch(this.searchQuery, this.searchPage).then((response) => {
       this.searchResults = response;
     }, (error) => {
       alert('Error: ' + error.statusText);
@@ -41,15 +43,30 @@ export class GitSearchComponent implements OnInit {
   }
 
   gitUserSearch = (query: string) => {
-    this.GitSearchService.gitSearchUsers(query).then((response) => {
+    this.gitSearchService.gitSearchUsers(query).then((response) => {
       this.userSearchResults = response;
     }, (error) => {
       alert('Error: ' + error.statusText);
     });
   }
 
+  newQuery = () => {
+    this.searchPage = 1;
+    this.sendQuery();
+  }
+
+  nextPage = () => {
+    this.searchPage++;
+    this.sendQuery();
+  }
+
+  previousPage = () => {
+    this.searchPage--;
+    this.sendQuery();
+  }
+
   sendQuery = () => {
     this.searchResults = null;
-    this.router.navigate(['/search/' + this.searchQuery]);
+    this.router.navigate(['/search/' + this.searchQuery + '/' + this.searchPage]);
   }
 }
