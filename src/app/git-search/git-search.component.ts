@@ -3,6 +3,7 @@ import { GitSearchService } from '../git-search.service';
 import { GitSearch } from '../git-search';
 import { GitUsers } from '../git-users';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { AdvancedSearchModel } from '../advanced-search-model'
 
 @Component({
   selector: 'app-git-search',
@@ -21,6 +22,9 @@ export class GitSearchComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) {
   }
+
+  model = new AdvancedSearchModel('','','',null,null,'');
+  modelKeys = Object.keys(this.model);
 
   ngOnInit() {
     this.route.data.subscribe((result) => {
