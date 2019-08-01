@@ -32,7 +32,8 @@ export class GitSearchComponent implements OnInit {
     });
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.searchQuery = params.get('query');
-      this.displayQuery = params.get('query');
+      this.displayQuery = this.searchQuery;
+      this.model.q = this.searchQuery;
       this.searchPage = parseInt(params.get('page'), 10);
       this.gitSearch();
     });
@@ -56,6 +57,25 @@ export class GitSearchComponent implements OnInit {
 
   newQuery = () => {
     this.searchPage = 1;
+    let search: string = this.model.q;
+    let params: string = "";
+    this.modelKeys.forEach((element) => {
+      if (element == 'q') {
+        return false;
+      }
+      if (this.model[element]) {
+        params += '+' + element + ':' + this.model[element];
+      }
+    });
+
+    if (search) {
+      this.searchQuery = search;
+    } 
+    
+    if (search && params !== '') {
+      this.searchQuery = search + '+' + params;
+    }
+
     this.sendQuery();
   }
 

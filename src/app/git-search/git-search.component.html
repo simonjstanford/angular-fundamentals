@@ -1,10 +1,10 @@
 <h3>{{title}} - {{displayQuery}}</h3>
 
-<form>
+<form (ngSubmit)="newQuery()">
   <div *ngFor="let key of modelKeys">
-    {{key}} <input name="{{key}}" placeholder="Enter {{key}} here"/>
+    {{key}} <input name="{{key}}" placeholder="Enter {{key}} here" [(ngModel)]="model[key]"/>
   </div>
-  <button (click)="newQuery()">Submit</button>
+  <button type="submit">Submit</button>
 </form>
 
 <div *ngIf="searchResults else loadingBlock;" >
