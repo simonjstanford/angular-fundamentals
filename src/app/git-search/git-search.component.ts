@@ -79,16 +79,7 @@ export class GitSearchComponent implements OnInit {
       this.searchQuery = this.model.q;
     }
 
-    this.searchQueryParams = { 
-      queryParams: { 
-        'language': this.model.language,
-        'user': this.model.user,
-        'size': this.model.size,
-        'stars': this.model.stars,
-        'topic': this.model.topic
-      } 
-    };
-
+    this.createSearchQueryParams();
     this.sendQuery();
   }
 
@@ -105,5 +96,27 @@ export class GitSearchComponent implements OnInit {
   sendQuery = () => {
     this.searchResults = null;
     this.router.navigate(['/search/' + this.searchQuery + '/' + this.searchPage], this.searchQueryParams );
+  }
+
+  private createSearchQueryParams() {
+    this.searchQueryParams = {
+      queryParams: {}
+    };
+
+    if (this.model.language && this.model.language !== '') {
+      this.searchQueryParams.queryParams['language'] = this.model.language;
+    }
+    if (this.model.user && this.model.user !== '') {
+      this.searchQueryParams.queryParams['user'] = this.model.user;
+    }
+    if (this.model.size) {
+      this.searchQueryParams.queryParams['size'] = this.model.size;
+    }
+    if (this.model.stars) {
+      this.searchQueryParams.queryParams['stars'] = this.model.stars;
+    }
+    if (this.model.topic && this.model.topic !== '') {
+      this.searchQueryParams.queryParams['topic'] = this.model.topic;
+    }
   }
 }
