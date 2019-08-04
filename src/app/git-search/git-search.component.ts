@@ -55,7 +55,11 @@ export class GitSearchComponent implements OnInit {
     });
   }
 
-  gitSearch = () => {
+  private gitSearch() {
+    //clear the previous search results
+    this.searchResults = null;
+
+    //carry out the search
     this.gitSearchService.gitSearch(this.searchQuery, this.searchPage, this.searchQueryParams).then((response) => {
       this.searchResults = response;
     }, (error) => {
@@ -63,7 +67,7 @@ export class GitSearchComponent implements OnInit {
     });
   }
 
-  gitUserSearch = (query: string) => {
+  private gitUserSearch(query: string) {
     this.gitSearchService.gitSearchUsers(query).then((response) => {
       this.userSearchResults = response;
     }, (error) => {
@@ -71,7 +75,7 @@ export class GitSearchComponent implements OnInit {
     });
   }
 
-  newQuery = () => {
+  public newQuery() {
     this.searchPage = 1;
     this.searchQuery = '';
 
@@ -83,18 +87,17 @@ export class GitSearchComponent implements OnInit {
     this.sendQuery();
   }
 
-  nextPage = () => {
+  public nextPage() {
     this.searchPage++;
     this.sendQuery();
   }
 
-  previousPage = () => {
+  public previousPage() {
     this.searchPage--;
     this.sendQuery();
   }
 
-  sendQuery = () => {
-    this.searchResults = null;
+  private sendQuery() {
     this.router.navigate(['/search/' + this.searchQuery + '/' + this.searchPage], this.searchQueryParams );
   }
 
