@@ -39,17 +39,18 @@ export class GitSearchComponent implements OnInit {
       this.gitSearch();
     });
 
-    this.route.queryParams.subscribe((params: Params) => {
-      this.searchQueryParams['language'] = params['language'];
-      this.searchQueryParams['user'] = params['user'];
-      this.searchQueryParams['size'] = params['size'];
-      this.searchQueryParams['stars'] = params['stars'];
-      this.searchQueryParams['topic'] = params['topic'];
-      this.gitSearch();
-    });
-
     //this is added so we can search for the same info twice
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.subscribe((params: ParamMap) => {
+      this.searchQueryParams = {
+         queryParams: 
+         { 
+           "language": params.get('language'),
+           "user": params.get('user'),
+           "size": params.get('size'),
+           "stars": params.get('stars'),
+           "topic": params.get('topic'),
+        }
+      };
       this.gitSearch();
     });
   }
