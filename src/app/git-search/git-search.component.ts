@@ -4,6 +4,7 @@ import { GitSearch } from '../git-search';
 import { GitUsers } from '../git-users';
 import { ActivatedRoute, ParamMap, Router, NavigationExtras, Params } from '@angular/router';
 import { AdvancedSearchModel } from '../advanced-search-model'
+import { FormControl, FormGroup } from '@angular/forms'
 
 @Component({
   selector: 'app-git-search',
@@ -18,10 +19,16 @@ export class GitSearchComponent implements OnInit {
   displayQuery: string;
   searchPage: number;
   searchQueryParams:NavigationExtras;
+  form: FormGroup;
+  formControls = {};
 
   constructor(private gitSearchService: GitSearchService,
               private route: ActivatedRoute,
               private router: Router) {
+    this.modelKeys.forEach((key) => {
+      this.formControls[key] = new FormControl();
+    });
+    this.form = new FormGroup(this.formControls);
   }
 
   model = new AdvancedSearchModel('','','',null,null,'');
@@ -79,8 +86,8 @@ export class GitSearchComponent implements OnInit {
     this.searchPage = 1;
     this.searchQuery = '';
 
-    if (this.model.q) {
-      this.searchQuery = this.model.q;
+    if (this.form.value['q']) {
+      this.searchQuery = this.form.value['q'];
     }
 
     this.createSearchQueryParams();
@@ -106,20 +113,20 @@ export class GitSearchComponent implements OnInit {
       queryParams: {}
     };
 
-    if (this.model.language && this.model.language !== '') {
-      this.searchQueryParams.queryParams['language'] = this.model.language;
+    if (this.form.value['language'] && this.form.value['language'] !== '') {
+      this.searchQueryParams.queryParams['language'] = this.form.value['language'];
     }
-    if (this.model.user && this.model.user !== '') {
-      this.searchQueryParams.queryParams['user'] = this.model.user;
+    if (this.form.value['user'] && this.form.value['user'] !== '') {
+      this.searchQueryParams.queryParams['user'] = this.form.value['user'];
     }
-    if (this.model.size) {
-      this.searchQueryParams.queryParams['size'] = this.model.size;
+    if (this.form.value['size']) {
+      this.searchQueryParams.queryParams['size'] = this.form.value['size'];
     }
-    if (this.model.stars) {
-      this.searchQueryParams.queryParams['stars'] = this.model.stars;
+    if (this.form.value['stars']) {
+      this.searchQueryParams.queryParams['stars'] = this.form.value['stars'];
     }
-    if (this.model.topic && this.model.topic !== '') {
-      this.searchQueryParams.queryParams['topic'] = this.model.topic;
+    if (this.form.value['topic'] && this.form.value['topic'] !== '') {
+      this.searchQueryParams.queryParams['topic'] = this.form.value['topic'];
     }
   }
 }
