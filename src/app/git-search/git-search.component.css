@@ -26,3 +26,9 @@
 .description {
     font-size: 18px;
 }
+.ng-valid {
+    border: 2px solid green;
+}
+.ng-invalid {
+    border: 2px solid red;    
+}

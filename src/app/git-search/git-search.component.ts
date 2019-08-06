@@ -4,7 +4,7 @@ import { GitSearch } from '../git-search';
 import { GitUsers } from '../git-users';
 import { ActivatedRoute, ParamMap, Router, NavigationExtras, Params } from '@angular/router';
 import { AdvancedSearchModel } from '../advanced-search-model'
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-git-search',
@@ -26,7 +26,15 @@ export class GitSearchComponent implements OnInit {
               private route: ActivatedRoute,
               private router: Router) {
     this.modelKeys.forEach((key) => {
-      this.formControls[key] = new FormControl();
+      let validators = [];
+      if (key == 'q') {
+        validators.push(Validators.required);
+      }
+      if (key == 'stars') {
+        validators.push(Validators.maxLength(4));
+      }
+      validators.push(this.noSpecialChars);
+      this.formControls[key] = new FormControl(this.model[key], validators); 
     });
     this.form = new FormGroup(this.formControls);
   }
@@ -128,5 +136,10 @@ export class GitSearchComponent implements OnInit {
     if (this.form.value['topic'] && this.form.value['topic'] !== '') {
       this.searchQueryParams.queryParams['topic'] = this.form.value['topic'];
     }
+  }
+
+  private noSpecialChars(c: FormControl) {
+    let regex = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/);
+    return regex.test(c.value) ? { validateEmail: { valid:false } } : null
   }
 }
