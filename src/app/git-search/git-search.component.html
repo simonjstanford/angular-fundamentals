@@ -1,11 +1,68 @@
 <h3>{{title}} - {{displayQuery}}</h3>
 
 <form #searchForm="ngForm" (ngSubmit)="newQuery()">
-  <div *ngFor="let key of modelKeys">
-    {{key}} 
-    <input name="{{key}}" placeholder="Enter {{key}} here" [(ngModel)]="model[key]" required *ngIf="key === 'q'" appNoSpecialChars/>
-    <input name="{{key}}" placeholder="Enter {{key}} here" [(ngModel)]="model[key]" minlength="2" maxlength="4" *ngIf="key === 'stars'" appNoSpecialChars/>
-    <input name="{{key}}" placeholder="Enter {{key}} here" [(ngModel)]="model[key]" *ngIf="key !== 'q' && key !== 'stars'" appNoSpecialChars/>
+  <div>
+    <label for=query>Search:</label>
+    <input name="query" id="#query" #query="ngModel" [(ngModel)]="model.q" required appNoSpecialChars/>    
+    <div *ngIf="query.invalid">
+      <div *ngIf="query.errors.required">
+        Please enter a search query
+      </div>
+      <div *ngIf="query.errors.hasSpecialChars">
+        Invalid characters
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for=language>Language:</label>
+    <input name="language" id="#language" #language="ngModel" [(ngModel)]="model.language" appNoSpecialChars/>    
+    <div *ngIf="language.invalid">
+      <div *ngIf="language.errors.hasSpecialChars">
+        Invalid characters
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for=user>User:</label>
+    <input name="user" id="#user" #user="ngModel" [(ngModel)]="model.user" appNoSpecialChars/>    
+    <div *ngIf="user.invalid">
+      <div *ngIf="user.errors.hasSpecialChars">
+        Invalid characters
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for=size>Size:</label>
+    <input name="size" id="#size" #size="ngModel" [(ngModel)]="model.size" appNoSpecialChars/>    
+    <div *ngIf="size.invalid">
+      <div *ngIf="size.errors.hasSpecialChars">
+        Invalid characters
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for=stars>Stars:</label>
+    <input name="stars" id="#stars" #stars="ngModel" [(ngModel)]="model.stars" minlength="2" maxlength="4" appNoSpecialChars/>    
+    <div *ngIf="stars.invalid">
+      <div *ngIf="stars.errors.hasSpecialChars">
+        Invalid characters
+      </div>
+      <div *ngIf="stars.errors.minlength">
+        A minimum of two characters are required
+      </div>
+      <div *ngIf="stars.errors.maxlength">
+        A max of two characters are allowed
+      </div>
+    </div>
+  </div>
+  <div>
+    <label for=topic>Topic:</label>
+    <input name="topic" id="#topic" #topic="ngModel" [(ngModel)]="model.topic" appNoSpecialChars/>    
+    <div *ngIf="topic.invalid">
+      <div *ngIf="topic.errors.hasSpecialChars">
+        Invalid characters
+      </div>
+    </div>
   </div>
   <button type="submit" [disabled]="!searchForm.valid">Submit</button>
 </form>
