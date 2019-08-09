@@ -3,7 +3,7 @@
 <form #searchForm="ngForm" (ngSubmit)="newQuery()">
   <div>
     <label for=query>Search:</label>
-    <input name="query" id="#query" #query="ngModel" [(ngModel)]="model.q" required appNoSpecialChars/>    
+    <input name="query" id="#query" type="text" #query="ngModel" [(ngModel)]="model.q" required appNoSpecialChars/>    
     <div *ngIf="query.invalid">
       <div *ngIf="query.errors.required">
         Please enter a search query
@@ -15,7 +15,7 @@
   </div>
   <div>
     <label for=language>Language:</label>
-    <input name="language" id="#language" #language="ngModel" [(ngModel)]="model.language" appNoSpecialChars/>    
+    <input name="language" id="#language" type="text" #language="ngModel" [(ngModel)]="model.language" appNoSpecialChars/>    
     <div *ngIf="language.invalid">
       <div *ngIf="language.errors.hasSpecialChars">
         Invalid characters
@@ -24,7 +24,7 @@
   </div>
   <div>
     <label for=user>User:</label>
-    <input name="user" id="#user" #user="ngModel" [(ngModel)]="model.user" appNoSpecialChars/>    
+    <input name="user" id="#user" #user="ngModel" type="text" [(ngModel)]="model.user" appNoSpecialChars/>    
     <div *ngIf="user.invalid">
       <div *ngIf="user.errors.hasSpecialChars">
         Invalid characters
@@ -33,7 +33,7 @@
   </div>
   <div>
     <label for=size>Size:</label>
-    <input name="size" id="#size" #size="ngModel" [(ngModel)]="model.size" appNoSpecialChars/>    
+    <input name="size" id="#size" #size="ngModel" type="number" [(ngModel)]="model.size" appNoSpecialChars/>    
     <div *ngIf="size.invalid">
       <div *ngIf="size.errors.hasSpecialChars">
         Invalid characters
@@ -42,7 +42,7 @@
   </div>
   <div>
     <label for=stars>Stars:</label>
-    <input name="stars" id="#stars" #stars="ngModel" [(ngModel)]="model.stars" minlength="2" maxlength="4" appNoSpecialChars/>    
+    <input name="stars" id="#stars" #stars="ngModel" type="number" [(ngModel)]="model.stars" minlength="2" maxlength="4" appNoSpecialChars/>    
     <div *ngIf="stars.invalid">
       <div *ngIf="stars.errors.hasSpecialChars">
         Invalid characters
@@ -57,7 +57,7 @@
   </div>
   <div>
     <label for=topic>Topic:</label>
-    <input name="topic" id="#topic" #topic="ngModel" [(ngModel)]="model.topic" appNoSpecialChars/>    
+    <input name="topic" id="#topic" #topic="ngModel" type="text" [(ngModel)]="model.topic" appNoSpecialChars/>    
     <div *ngIf="topic.invalid">
       <div *ngIf="topic.errors.hasSpecialChars">
         Invalid characters
