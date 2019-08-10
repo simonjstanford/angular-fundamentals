@@ -1,11 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { GitSearch } from './git-search';
 import { HttpClient } from '@angular/common/http';
 import { GitUsers } from './git-users';
 import { NavigationExtras } from '@angular/router';
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/publishReplay';
+import { publishReplay, refCount } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,7 @@ export class GitSearchService {
   gitSearch = (query: string, page: number, searchQueryParams:NavigationExtras): Observable<GitSearch> => {
     let searchString: string = this.buildSearchString(query, page, searchQueryParams);
     let fullString = 'https://api.github.com/search/repositories' + searchString
-    this.search = this.http.get<GitSearch>(fullString).publishReplay(1).refCount();
+    this.search = this.http.get<GitSearch>(fullString).pipe(publishReplay(1), refCount());
     this.cachedValue = query;
     return this.search;
   }
