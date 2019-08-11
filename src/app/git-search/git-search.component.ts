@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { GitSearchService } from '../git-search.service';
-import { GitSearch } from '../git-search';
-import { GitUsers } from '../git-users';
+import { GitSearchService } from '../services/git-search.service';
+import { GitSearch } from '../interfaces/git-search';
+import { GitUsers } from '../interfaces/git-users';
 import { ActivatedRoute, ParamMap, Router, NavigationExtras, Params } from '@angular/router';
-import { AdvancedSearchModel } from '../advanced-search-model'
+import { AdvancedSearchModel } from '../models/advanced-search-model'
 
 @Component({
   selector: 'app-git-search',

@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
-import { GitSearch } from './git-search';
+import { GitSearch } from '../interfaces/git-search';
 import { HttpClient } from '@angular/common/http';
-import { GitUsers } from './git-users';
+import { GitUsers } from '../interfaces/git-users';
 import { NavigationExtras } from '@angular/router';
 import { Observable } from 'rxjs';
 import { publishReplay, refCount } from 'rxjs/operators';

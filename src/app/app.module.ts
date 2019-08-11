@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { GitSearchService } from './git-search.service';
-import { GitCodeSearchService } from './git-code-search.service';
+import { GitSearchService } from './services/git-search.service';
+import { GitCodeSearchService } from './services/git-code-search.service';
 import { GitSearchComponent } from './git-search/git-search.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule, Routes, Router } from '@angular/router';
-import { NoSpecialCharsDirective } from './no-special-chars.directive';
+import { NoSpecialCharsDirective } from './directives/no-special-chars.directive';
 
 const appRoutes: Routes = [
   { path: '',
