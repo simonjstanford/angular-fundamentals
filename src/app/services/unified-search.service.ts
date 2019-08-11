@@ -15,19 +15,17 @@ export class UnifiedSearchService {
 
   constructor(private searchService: GitSearchService, private codeSearchService: GitCodeSearchService) { }
 
-
-  //unifiedSearch(query: string, page: number, searchQueryParams:NavigationExtras): Observable<UnifiedSearch> {
-  unifiedSearch(query: string, page: number, searchQueryParams:NavigationExtras): Observable<GitSearch> {
+  unifiedSearch(query: string, page: number, searchQueryParams:NavigationExtras): Observable<UnifiedSearch> {
     let searchString = this.buildSearchString(query, page, searchQueryParams);
-    // return forkJoin(this.searchService.gitSearch(searchString), this.codeSearchService.codeSearch(searchString))
-    // .pipe(map((result: [GitSearch, GitCodeSearch]) => {
-    //   return {
-    //     'repositories': result[0],
-    //     'code': result[1]
-    //   };
-    // }));
 
-    return this.searchService.gitSearch(searchString);
+    let join = forkJoin(this.searchService.gitSearch(searchString), this.codeSearchService.codeSearch(query, page, searchQueryParams))
+    .pipe(map((result: [GitSearch, GitCodeSearch]) => {
+      return {
+        'repositories': result[0],
+        'code': result[1]
+      };
+    }));
+    return join;
   }
 
   buildSearchString(query: string, page: number, params: NavigationExtras): string {
