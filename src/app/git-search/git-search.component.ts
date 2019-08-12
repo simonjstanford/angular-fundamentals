@@ -4,6 +4,8 @@ import { GitSearch } from '../interfaces/git-search';
 import { GitUsers } from '../interfaces/git-users';
 import { ActivatedRoute, ParamMap, Router, NavigationExtras, Params } from '@angular/router';
 import { AdvancedSearchModel } from '../models/advanced-search-model'
+import { UnifiedSearchService } from '../services/unified-search.service';
+import { UnifiedSearch } from '../interfaces/unified-search';
 
 @Component({
   selector: 'app-git-search',
@@ -19,7 +21,7 @@ export class GitSearchComponent implements OnInit {
   searchPage: number;
   searchQueryParams:NavigationExtras;
 
-  constructor(private gitSearchService: GitSearchService,
+  constructor(private unifiedSearchService: UnifiedSearchService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -60,16 +62,9 @@ export class GitSearchComponent implements OnInit {
     this.searchResults = null;
 
     //carry out the search
-    this.gitSearchService.gitSearch(this.searchQuery, this.searchPage, this.searchQueryParams).subscribe((response) => {
-      this.searchResults = response;
-    }, (error) => {
-      alert('Error: ' + error.statusText);
-    });
-  }
-
-  private gitUserSearch(query: string) {
-    this.gitSearchService.gitSearchUsers(query).then((response) => {
-      this.userSearchResults = response;
+    this.unifiedSearchService.unifiedSearch(this.searchQuery, this.searchPage, this.searchQueryParams).subscribe((response: UnifiedSearch) => {
+      this.searchResults = response.repositories;
+      console.log(response.code);
     }, (error) => {
       alert('Error: ' + error.statusText);
     });
