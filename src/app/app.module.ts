@@ -10,6 +10,8 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RouterModule, Routes, Router } from '@angular/router';
 import { NoSpecialCharsDirective } from './directives/no-special-chars.directive';
+import { RepositoryDisplayComponent } from './repository-display/repository-display.component';
+import { CodeDisplayComponent } from './code-display/code-display.component';
 
 const appRoutes: Routes = [
   { path: '',
@@ -34,7 +36,9 @@ const appRoutes: Routes = [
     GitSearchComponent,
     HomePageComponent,
     NotFoundComponent,
-    NoSpecialCharsDirective
+    NoSpecialCharsDirective,
+    RepositoryDisplayComponent,
+    CodeDisplayComponent
   ],
   imports: [
     BrowserModule,
