@@ -20,6 +20,7 @@ export class GitSearchComponent implements OnInit {
   displayQuery: string;
   searchPage: number;
   searchQueryParams:NavigationExtras;
+  favorites: Array<number> = [];
 
   constructor(private unifiedSearchService: UnifiedSearchService,
               private route: ActivatedRoute,
@@ -116,5 +117,13 @@ export class GitSearchComponent implements OnInit {
     if (this.model.topic && this.model.topic !== '') {
       this.searchQueryParams.queryParams['topic'] = this.model.topic;
     }
+  }
+
+  checkType(key) {
+    return typeof key === 'string' ? 'text' : typeof key;
+  }
+
+  handleFavorite(id) {
+    return this.favorites.push(id);
   }
 }

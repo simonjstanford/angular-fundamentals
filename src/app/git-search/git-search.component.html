@@ -75,8 +75,8 @@
         <button (click)="nextPage()">Next</button>
       </div>
       <ul class="list">
-          <app-repository-display [searchResults]="searchResults.repositories"></app-repository-display>
-          <app-code-display [searchResults]="searchResults.code" *ngIf="searchResults.code"></app-code-display>
+          <app-repository-display [searchResults]="searchResults.repositories" [favorites]="favorites" (updateFavorites)="handleFavorite($event)" *ngIf="searchResults.repositories"></app-repository-display>
+          <app-code-display [searchResults]="searchResults.code" [favorites]="favorites" (updateFavorites)="handleFavorite($event)" *ngIf="searchResults.code"></app-code-display>
       </ul>
       <div>
         <button (click)="previousPage()">Previous</button>

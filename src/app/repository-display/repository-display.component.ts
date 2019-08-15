@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GitSearch } from '../interfaces/git-search';
 
 @Component({
@@ -8,10 +8,19 @@ import { GitSearch } from '../interfaces/git-search';
 })
 export class RepositoryDisplayComponent implements OnInit {
   @Input() searchResults: GitSearch;
+  @Input() favorites: Array<number>;
+  @Output() updateFavorites = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  addFavorite(item: { id: string; }) {
+    return this.updateFavorites.emit(item.id);
+  }
+
+  checkFavorite(item: { id: number; }) {
+    return this.favorites.indexOf(item.id) > -1;
+  }
 }
