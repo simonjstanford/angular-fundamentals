@@ -13,7 +13,7 @@ import { UnifiedSearch } from '../interfaces/unified-search';
   styleUrls: ['./git-search.component.css']
 })
 export class GitSearchComponent implements OnInit {
-  searchResults: GitSearch;
+  searchResults: UnifiedSearch;
   searchQuery: string;
   userSearchResults: GitUsers;
   title: string;
@@ -63,7 +63,7 @@ export class GitSearchComponent implements OnInit {
 
     //carry out the search
     this.unifiedSearchService.unifiedSearch(this.searchQuery, this.searchPage, this.searchQueryParams).subscribe((response: UnifiedSearch) => {
-      this.searchResults = response.repositories;
+      this.searchResults = response;
       console.log(response.code);
     }, (error) => {
       alert('Error: ' + error.statusText);
