@@ -12,6 +12,8 @@ import { RouterModule, Routes, Router } from '@angular/router';
 import { NoSpecialCharsDirective } from './directives/no-special-chars.directive';
 import { RepositoryDisplayComponent } from './repository-display/repository-display.component';
 import { CodeDisplayComponent } from './code-display/code-display.component';
+import { FadeDirective } from './directives/fade.directive';
+import { FavoriteTextPipe } from './pipes/favorite-text.pipe';
 
 const appRoutes: Routes = [
   { path: '',
@@ -38,7 +40,9 @@ const appRoutes: Routes = [
     NotFoundComponent,
     NoSpecialCharsDirective,
     RepositoryDisplayComponent,
-    CodeDisplayComponent
+    CodeDisplayComponent,
+    FadeDirective,
+    FavoriteTextPipe
   ],
   imports: [
     BrowserModule,
