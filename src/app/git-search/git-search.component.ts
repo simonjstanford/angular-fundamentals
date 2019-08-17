@@ -124,6 +124,13 @@ export class GitSearchComponent implements OnInit {
   }
 
   handleFavorite(id) {
-    return this.favorites.push(id);
+    let index = this.favorites.indexOf(id);
+    
+    if (index === -1) {
+      return this.favorites.push(id);
+    }
+    else {
+      return this.favorites.splice(index, 1);
+    }
   }
 }
