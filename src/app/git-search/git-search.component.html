@@ -69,7 +69,7 @@
 
 <div *ngIf="searchResults else loadingBlock;" >
   <div *ngIf="searchResults.repositories.items.length > 0 else noItemsBlock;">
-      <h3 class="total">Total Results: {{searchResults.total_count}}</h3>
+      <!-- <h3 class="total">Total Results: {{searchResults.total_count}}</h3> -->
       <div>
         <button (click)="previousPage()">Previous</button>
         <button (click)="nextPage()">Next</button>
