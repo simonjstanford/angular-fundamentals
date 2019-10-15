@@ -1,3 +1,5 @@
 {
-    "workbench.colorCustomizations": {}
+    "workbench.colorCustomizations": {},
+    "appService.defaultWebAppToDeploy": "/subscriptions/95d3cef0-64de-49bf-9f08-19d0e5e71030/resourceGroups/ResourceGroup/providers/Microsoft.Web/sites/angular-fundamentals",
+    "appService.deploySubpath": "dist\\angular-fundamentals"
 }
